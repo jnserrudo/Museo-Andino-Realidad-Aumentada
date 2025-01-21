@@ -21,7 +21,7 @@ body {
   pointer-events: auto;
   z-index: 999999;
   border-color:#333;
-  border-style:groove;
+  border-style:double;
   border-color: black;
   border-radius: 5%;
   border-width: 30;
