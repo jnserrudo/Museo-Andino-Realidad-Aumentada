@@ -1,0 +1,103 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos de las tarjetas */
+.card-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  display: none;
+  opacity: 0;
+  transform-origin: center;
+  pointer-events: auto;
+  z-index: 999999;
+  border-color:#333;
+  border-style:groove;
+  border-color: black;
+  border-radius: 5%;
+  border-width: 30;
+}
+
+
+.card-container h1 {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.card-container p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Estilos de los botones */
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.card-button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background-color: #b57be0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.card-button:hover {
+  background-color: #9b5ac9;
+}
+
+.card-button img {
+  width: 15px;
+  height: 15px;
+}
+
+.card-button.back {
+  background-color: #666;
+}
+
+.card-button.back:hover {
+  background-color: #444;
+}
+
+/* Estilos para las palabras y subtítulos */
+.word {
+  display: inline-block;
+  transition: all 0.3s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.word.active {
+  color: #ff0000;
+  background-color: rgba(255, 0, 0, 0.1);
+  font-weight: bold;
+  transform: scale(1.1);
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.lyrics-container {
+  margin: 10px 0;
+  line-height: 1.8;
+}
+
+.hidden {
+  display: none;
+}

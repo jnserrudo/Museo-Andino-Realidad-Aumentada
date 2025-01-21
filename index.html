@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Visor de Modelos 3D con Anime.js</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="components.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <a-scene vr-mode-ui="enabled: false">
+      
+      <!-- Cámara -->
+      <a-entity id="camera" position="0 1.5 4" camera wasd-controls="enabled: false">
+        <a-entity cursor="fuse: false; rayOrigin: mouse;"
+                  raycaster="objects: [id^='click-point']"
+                  position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
+                  material="opacity: 0%; shader: flat">
+        </a-entity>
+      </a-entity>
+
+      <!-- Grupo de objetos -->
+      <a-entity id="grupo" position="0 1 0">
+        <a-gltf-model src="assets/quartz.glb" position="0.5 -0.7 0" scale="0.1 0.1 0.1" rotation="-90"></a-gltf-model>
+        <a-sphere id="click-point-1" position="0 0.4 0.8" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"></a-sphere>
+        <a-sphere id="click-point-2" position="0.5 -0.3 -0.2" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"></a-sphere>
+        <a-sphere id="click-point-3" position="-0.7 1 -0.4" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"></a-sphere>
+      </a-entity>
+
+      <!-- Tarjeta 1 -->
+      <div class="card-container" id="info-card-1">
+        <h1>Información</h1>
+        <div class="lyrics-container" id="lyrics-1">
+          <p>Esta es una tarjeta de información simple.</p>
+          <p>Incluye bordes negros y un diseño minimalista.</p>
+        </div>
+        <div class="card-buttons">
+          <button class="card-button" id="play-1"><img src="assets/img/play-button.png" alt="Play"></button>
+          <button class="card-button" id="pause-1"><img src="assets/img/video-pause-button.png" alt="Pause"></button>
+          <button class="card-button" id="repeat-1"><img src="assets/img/loop.png" alt="Repeat"></button>
+          <button class="card-button back" id="back-1"><img src="img/back.png" alt="Back"></button>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="card-container" id="info-card-2">
+        <img class="card-bg" src="assets/card-bg.jpg" alt="background">
+        <h1>Etimología</h1>
+        <p>La palabra cuarzo proviene de quarz del idioma aleman y su primer registro en tal forma es de 1530 en los escritos de Georgius Agricola. Quarz a su vez proviene de la palabra twarc del alto aleman medio; se ha sugerido que esta deriva de una lengua eslava occidental.</p>
+        <div class="card-buttons">
+          <button class="card-button" id="play-2"><img src="img/play.png" alt="Play"></button>
+          <button class="card-button" id="pause-2"><img src="img/pause.png" alt="Pause"></button>
+          <button class="card-button" id="repeat-2"><img src="img/repeat.png" alt="Repeat"></button>
+          <button class="card-button back" id="back-2"><img src="img/back.png" alt="Back"></button>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="card-container" id="info-card-3">
+        <img class="card-bg" src="assets/card-bg.jpg" alt="background">
+        <h1>Química, estructura y propiedades</h1>
+        <div class="lyrics-container" id="lyrics-3">
+          <p>El cuarzo es oxido de silicio, llamado comúnmente silice. Su formula química:SiO2. Dependiendo del criterio que se considere, quimico o estructural, ocupa diferentes lugares en las clasificaciones.</p>
+        </div>
+        <div class="card-buttons">
+          <button class="card-button" id="play-3"><img src="img/play.png" alt="Play"></button>
+          <button class="card-button" id="pause-3"><img src="img/pause.png" alt="Pause"></button>
+          <button class="card-button" id="repeat-3"><img src="img/repeat.png" alt="Repeat"></button>
+          <button class="card-button back" id="back-3"><img src="img/back.png" alt="Back"></button>
+        </div>
+      </div>
+
+    </a-scene>
+  </body>
+</html>
