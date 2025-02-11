@@ -7,10 +7,11 @@ body {
 /* Estilos de las tarjetas */
 .card-container {
   position: fixed;
-  top: 50%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
+  width: 20vw;
+  height:45vh;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -25,19 +26,22 @@ body {
   border-color: black;
   border-radius: 5%;
   border-width: 30;
+  font-size: clamp(5px, 2vw, 14px); /* Mínimo 12px, adaptable según pantalla */
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 
 .card-container h1 {
   margin-top: 0;
   color: #333;
-  font-size: 24px;
 }
 
 .card-container p {
   color: #666;
   line-height: 1.6;
 }
+
 
 /* Estilos de los botones */
 .card-buttons {
