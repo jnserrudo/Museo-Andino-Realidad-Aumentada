@@ -21,7 +21,7 @@ body {
   pointer-events: auto;
   z-index: 999999;
   border-color:#333;
-  border-style:double;
+  border-style:groove;
   border-color: black;
   border-radius: 5%;
   border-width: 30;
@@ -48,8 +48,8 @@ body {
 }
 
 .card-button {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 50%;
   background-color: #b57be0;
@@ -57,16 +57,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  padding: 0;
 }
 
 .card-button:hover {
   background-color: #9b5ac9;
+  transform: scale(1.1);
 }
 
-.card-button img {
-  width: 15px;
-  height: 15px;
+.card-button .material-icons {
+  color: white;
+  font-size: 24px;
 }
 
 .card-button.back {
