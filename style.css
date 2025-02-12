@@ -10,8 +10,8 @@ body {
   top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20vw;
-  height:45vh;
+  width: min(30vw); 
+  max-height: 70vh; /* Evita que la tarjeta crezca demasiado */
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -21,16 +21,24 @@ body {
   transform-origin: center;
   pointer-events: auto;
   z-index: 999999;
-  border-color:#333;
-  border-style:groove;
   border-color: black;
+  border-style: groove;
   border-radius: 5%;
   border-width: 30;
-  font-size: clamp(5px, 2vw, 14px); /* Mínimo 12px, adaptable según pantalla */
+  font-size: clamp(5px, 2vw, 14px); /* Ajustable */
   overflow: hidden;
   word-wrap: break-word;
+  
+  display: flex;
+  flex-direction: column; /* Organiza el contenido y botones en columna */
 }
 
+/* Contenedor del texto dentro de la tarjeta */
+.card-content {
+  flex-grow: 1; /* Permite que el contenido crezca sin afectar los botones */
+  overflow: auto; /* Hace que el contenido sea desplazable si hay mucho texto */
+  max-height: 50vh; /* Ajusta la altura máxima del contenido */
+}
 
 .card-container h1 {
   margin-top: 0;
@@ -43,26 +51,37 @@ body {
 }
 
 
-/* Estilos de los botones */
+/* Contenedor de botones */
 .card-buttons {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap; /* Permite que los botones se acomoden si no hay espacio */
+  gap: 5px; /* Espaciado entre botones */
   justify-content: center;
-  margin-top: 15px;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 10px 0;
 }
 
 .card-button {
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 50%;
-  background-color: #b57be0;
+  flex: 1; /* Hace que todos los botones se distribuyan uniformemente */
+  min-width: clamp(40px, 5vw, 80px); /* El ancho será relativo al ancho de la pantalla */
+  max-width: clamp(50px, 7vw, 200px); /* Máximo relativo al ancho de la pantalla */
+  height: clamp(30px, 5vh, 120px); /* La altura será relativa al alto de la pantalla */
+  font-size: clamp(10px, 2vw, 16px); /* Ajuste dinámico del tamaño del texto */
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: lightgray;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  padding: 0;
+}
+
+
+/* Ajustar tamaño de botones en pantallas pequeñas */
+@media (max-width: 600px) {
+  .card-button {
+    max-width: 60px;
+    font-size: 12px;
+  }
 }
 
 .card-button:hover {
@@ -100,8 +119,8 @@ body {
 }
 
 .lyrics-container {
-  margin: 10px 0;
-  line-height: 1.8;
+  flex-grow: 1; /* Para que el texto pueda expandirse sin empujar los botones */
+  overflow-y: auto; /* Permitir scroll si el texto es muy largo */
 }
 
 .hidden {
