@@ -2,60 +2,84 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Asegura que todo se centra verticalmente */
+  overflow: hidden; /* Evita barras de desplazamiento adicionales */
+}
+
+@font-face {
+  font-family: 'MuseoSans300';
+  src: url('assets/fonts/MuseoSans-300.woff') format('woff');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'MuseoSans700';
+  src: url('assets/fonts/MuseoSans-700.woff') format('woff');
+  font-weight: 700;
 }
 
 /* Estilos de las tarjetas */
 .card-container {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(30vw); 
+  position: relative;
+  margin: 10px;
+  width: 100%;
+  max-width: 300px; /* Ajusta el máximo ancho de las tarjetas */
   max-height: 70vh; /* Evita que la tarjeta crezca demasiado */
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  display: none;
   opacity: 0;
   transform-origin: center;
   pointer-events: auto;
   z-index: 999999;
   border-color: black;
   border-style: groove;
-  border-radius: 5%;
-  border-width: 30;
+  border-radius: 4%;
+  border-width: 2px;
   font-size: clamp(5px, 2vw, 14px); /* Ajustable */
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   word-wrap: break-word;
-  
+  transform: translate(-50%, -50%);
+  justify-content: space-between;
   display: flex;
   flex-direction: column; /* Organiza el contenido y botones en columna */
 }
 
-/* Contenedor del texto dentro de la tarjeta */
-.card-content {
-  flex-grow: 1; /* Permite que el contenido crezca sin afectar los botones */
-  overflow: auto; /* Hace que el contenido sea desplazable si hay mucho texto */
-  max-height: 50vh; /* Ajusta la altura máxima del contenido */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el icono y el título */
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  background: none;
+  padding: 0;
+  border-radius: 0;
 }
 
 .card-container h1 {
   margin-top: 0;
   color: #333;
+  font-family: 'MuseoSans700';
 }
 
 .card-container p {
   color: #666;
   line-height: 1.6;
+  font-family: "MuseoSans300";
 }
-
-
-/* Contenedor de botones */
 .card-buttons {
   display: flex;
   flex-wrap: wrap; /* Permite que los botones se acomoden si no hay espacio */
-  gap: 5px; /* Espaciado entre botones */
+  gap: 5px;
   justify-content: center;
   position: sticky;
   bottom: 0;
@@ -64,24 +88,16 @@ body {
 }
 
 .card-button {
-  flex: 1; /* Hace que todos los botones se distribuyan uniformemente */
-  min-width: clamp(40px, 5vw, 80px); /* El ancho será relativo al ancho de la pantalla */
-  max-width: clamp(50px, 7vw, 200px); /* Máximo relativo al ancho de la pantalla */
-  height: clamp(30px, 5vh, 120px); /* La altura será relativa al alto de la pantalla */
-  font-size: clamp(10px, 2vw, 16px); /* Ajuste dinámico del tamaño del texto */
+  flex: 1 1 min(30px, 10vw); /* El ancho se ajusta con el tamaño de la pantalla */
+  min-width: 30px; /* Tamaño mínimo del botón */
+  max-width: 80px; /* Tamaño máximo del botón */
+  height: clamp(10px, 10vh, 95px); /* La altura de los botones también cambia con el tamaño de la pantalla */
+  font-size: clamp(10px, 3vw, 16px); /* Ajuste del tamaño del texto */
+  padding: 10px;
   border-radius: 10px;
   border: 1px solid black;
   background-color: lightgray;
   cursor: pointer;
-}
-
-
-/* Ajustar tamaño de botones en pantallas pequeñas */
-@media (max-width: 600px) {
-  .card-button {
-    max-width: 60px;
-    font-size: 12px;
-  }
 }
 
 .card-button:hover {
@@ -91,7 +107,7 @@ body {
 
 .card-button .material-icons {
   color: white;
-  font-size: 24px;
+  font-size: clamp(16px, 5vw, 24px); /* Ajusta el tamaño de los íconos dinámicamente */
 }
 
 .card-button.back {
@@ -102,27 +118,60 @@ body {
   background-color: #444;
 }
 
-/* Estilos para las palabras y subtítulos */
-.word {
-  display: inline-block;
-  transition: all 0.3s ease;
-  padding: 0 2px;
-  border-radius: 3px;
+/* Ajustar disposición de las tarjetas en el contenedor */
+.card-container-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 20px;
 }
 
-.word.active {
-  color: #ff0000;
-  background-color: rgba(255, 0, 0, 0.1);
-  font-weight: bold;
-  transform: scale(1.1);
-  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+/* Agregar la imagen al borde superior derecho */
+.card-container::before {
+  content: "";
+  position: absolute;
+  top: 4px; /* Alinea al borde superior */
+  right: 0; /* Alinea al borde derecho */
+  width: 10vw; /* El tamaño de la imagen depende del ancho de la ventana */
+  height: 10vw; /* El tamaño de la imagen también depende del ancho de la ventana */
+  background: url("assets/img/bordercard.png") no-repeat center center;
+  background-size: cover; /* Ajusta la imagen para cubrir el área */
 }
 
-.lyrics-container {
-  flex-grow: 1; /* Para que el texto pueda expandirse sin empujar los botones */
-  overflow-y: auto; /* Permitir scroll si el texto es muy largo */
+/* Estilos para el contenedor del encabezado */
+.card-header {
+  display: flex;
+  align-items: center; /* Centra verticalmente el logo y el título */
+  gap: 10px; /* Espacio entre el logo y el título */
 }
 
-.hidden {
-  display: none;
+.card-logo {
+  width: 20px; /* Ajusta el tamaño del logo */
+  height: 20px; /* Mantén la proporción del logo */
+  object-fit: contain; /* Asegura que la imagen se ajuste bien */
+}
+
+
+
+
+@media (max-width: 600px) {
+  .card-button {
+    max-width: 80px;
+    font-size: 12px;
+  }
+}
+
+/* Ajustes para mejorar el diseño en pantallas pequeñas */
+@media (max-width: 768px) {
+  .card-container {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    max-width: 100%;
+  }
 }
