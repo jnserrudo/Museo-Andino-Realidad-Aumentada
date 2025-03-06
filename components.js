@@ -1,18 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var camera = document.querySelector("#camera");
-  var grupo = document.querySelector("#grupo");
-  var cursor = document.querySelector("[cursor]");
-  var isZoomedIn = false;
-  var activePoint = null;
-  
-  // Crear los elementos de audio
-  var audios = {
-    1: new Audio('assets/audio/Dale-Don-Dale.mp3'),
-    2: new Audio('assets/audio/El-Diablo-de-Humahuaca.mp3'),
-    3: new Audio('assets/audio/audio-3.mp3')
-  };
- // Establece el volumen al máximo
-  // Datos de sincronización para cada audio (timestamps en segundos)
   const syncData = {
     1: [
       //{ word: "Esta", time: 1 },
@@ -73,6 +59,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // corteza terrestre estando presente en una gran cantidad de 
     // rocas ígneas, metamórficas y sedimentarias. 
   };
+  
+  
+  
+  var camera = document.querySelector("#camera");
+  var grupo = document.querySelector("#grupo");
+  var cursor = document.querySelector("[cursor]");
+  var isZoomedIn = false;
+  var activePoint = null;
+  
+  // Crear los elementos de audio
+  var audios = {
+    1: new Audio('assets/audio/Dale-Don-Dale.mp3'),
+    2: new Audio('assets/audio/El-Diablo-de-Humahuaca.mp3'),
+    3: new Audio('assets/audio/audio-3.mp3')
+  };
+ // Establece el volumen al máximo
+  // Datos de sincronización para cada audio (timestamps en segundos)
+  
 
   // Función para preparar el texto con palabras individuales
   function prepareText(cardNumber) {
@@ -84,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const words = p.textContent.split(' ');
       p.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
     });
+    console.log(container.innerHTML);
   }
 
   // Preparar todos los textos
@@ -130,6 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentWordIndex !== -1 && words[currentWordIndex]) {
           words[currentWordIndex].classList.add('active');
         }
+        console.log(`Tiempo actual: ${currentTime}, Palabra resaltada: ${sync[currentWordIndex]?.word}`);
+        console.log("Aplicando clase 'active' a:", words[currentWordIndex]);
       }
       
 
@@ -144,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
           audio.play();
           clearInterval(highlightInterval); // Limpiar intervalo anterior si existe
           highlightInterval = setInterval(updateHighlight, 100);
+          console.log(`Reproduciendo audio ${cardNumber}, tiempo actual: ${audio.currentTime}`);
         });
       }
 
