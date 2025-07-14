@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <title>Museo Regional Andino - Calcita</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="components.js"></script>
+    <script src="lang.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <a-scene vr-mode-ui="enabled: false">
+      <!-- Cámara -->
+      <a-entity id="camera" position="0 1.5 4" camera wasd-controls="enabled: false">
+        <a-entity cursor="fuse: false; rayOrigin: mouse;"
+                  raycaster="objects: [id^='click-point']"
+                  position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
+                  material="opacity: 0%; shader: flat">
+        </a-entity>
+      </a-entity>
+
+      <!-- Grupo de objetos -->
+      <a-entity id="grupo" position="0 1 0">
+
+        <a-gltf-model id="model" src="assets/model/calcita/calcita.gltf" 
+        position="0 0 0" scale="8 8 8" rotation="-90"  
+        ></a-gltf-model>
+        
+        <a-sphere id="click-point-1" position="1 0.5 -0.8" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"
+        animation__pulse="property: scale; to: 1.3 1.3 1.3; dir: alternate; dur: 1000; loop: true; easing: easeInOutSine"></a-sphere>
+        
+        <a-sphere id="click-point-2" position="0 -0.5 -0.3" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"
+        animation__pulse="property: scale; to: 1.3 1.3 1.3; dir: alternate; dur: 1000; loop: true; delay: 200; easing: easeInOutSine"></a-sphere>
+        
+        <a-sphere id="click-point-3" position="-0.2 0.6 -0.4" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"
+        animation__pulse="property: scale; to: 1.3 1.3 1.3; dir: alternate; dur: 1000; loop: true; delay: 400; easing: easeInOutSine"></a-sphere>
+      </a-entity>
+
+     <!---<button id="language-toggle">English</button>-->
+
+
+      <!-- Contenedor de Tarjetas-->
+      <div class="card-container-wrapper">
+        <!-- Tarjeta 1 -->
+        <div class="card-container" id="info-card-1">
+          <div class="card-header">
+            <img src='assets/img/favicon.png' alt="Logo" class="card-logo">
+            <h1>Usos</h1>
+          </div>
+          <div class="lyrics-container" id="lyrics-1">
+            <p class="translatable">Industrialmente se usa como relleno en pinturas, 
+              plásticos y papel. Aunque popularmente se le atribuyen usos medicinales 
+              ancestrales, no tiene aplicaciones médicas reconocidas formalmente hoy. 
+            </p>
+          </div>
+          <div class="card-buttons">
+            <button class="card-button" id="play-1"><span class="material-icons">play_arrow</span></button>
+            <button class="card-button" id="pause-1"><span class="material-icons">pause</span></button>
+            <button class="card-button" id="repeat-1"><span class="material-icons">replay</span></button>
+            <button class="card-button back" id="back-1"><span class="material-icons">arrow_back</span></button>
+          </div>
+        </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="card-container" id="info-card-2">
+        <div class="card-content">
+          <h1>Datos Curiosos</h1>
+          <div class="lyrics-container" id="lyrics-2">
+            <p class="translatable">Muchas de sus formaciones presentan una llamativa doble 
+              refracción, un fenómeno óptico en el que un rayo de luz se divide en dos al 
+              atravesar el cristal. Además, en esta región puede encontrarse en formas cristalinas 
+              bien definidas y en asociaciones con minerales como fluorita y barita, lo que la hace muy apreciada por coleccionistas y estudiosos.
+            </p>
+          </div>
+        </div>
+        <div class="card-buttons">
+          <button class="card-button" id="play-2"><span class="material-icons">play_arrow</span></button>
+          <button class="card-button" id="pause-2"><span class="material-icons">pause</span></button>
+          <button class="card-button" id="repeat-2"><span class="material-icons">replay</span></button>
+          <button class="card-button back" id="back-2"><span class="material-icons">arrow_back</span></button>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="card-container" id="info-card-3">
+        <div class="card-content">
+          <h1>Formaciones</h1>
+          <div class="lyrics-container" id="lyrics-3">
+            <p class="translatable" data-es="Prueba 1" data-en="Test 1">
+              En algunas zonas forma geodas: cavidades rocosas revestidas con cristales 
+              perfectamente desarrollados. Estas geodas, a veces del tamaño de una mano 
+              o más grandes, se hallan en antiguos flujos volcánicos y sedimentos evaporíticos, 
+              lo que revela la intensa actividad geotérmica que tuvo la región.
+            </p>
+          </div>
+        </div>
+        <div class="card-buttons">
+          <button class="card-button" id="play-3"><span class="material-icons">play_arrow</span></button>
+          <button class="card-button" id="pause-3"><span class="material-icons">pause</span></button>
+          <button class="card-button" id="repeat-3"><span class="material-icons">replay</span></button>
+          <button class="card-button back" id="back-3"><span class="material-icons">arrow_back</span></button>
+        </div>
+      </div>
+      </div>     
+    </a-scene>
+  </body>
+</html>

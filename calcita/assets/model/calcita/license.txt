@@ -1,0 +1,11 @@
+Model Information:
+* title:	Calcite
+* source:	https://sketchfab.com/3d-models/calcite-f842f5c568af4b808ad309ba3a8db538
+* author:	EDUROCK – EDUCATIONAL VIRTUAL ROCK COLLECTION (https://sketchfab.com/EDUROCK_AALTO)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Calcite" (https://sketchfab.com/3d-models/calcite-f842f5c568af4b808ad309ba3a8db538) by EDUROCK – EDUCATIONAL VIRTUAL ROCK COLLECTION (https://sketchfab.com/EDUROCK_AALTO) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

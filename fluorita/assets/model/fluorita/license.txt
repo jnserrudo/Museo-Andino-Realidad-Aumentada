@@ -1,0 +1,11 @@
+Model Information:
+* title:	Fluorita
+* source:	https://sketchfab.com/3d-models/fluorita-a320593bf4fa46b9bbbce3fa9f71ba0a
+* author:	Geolab Laboratorio Virtual 3D (https://sketchfab.com/geolab-ule)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Fluorita" (https://sketchfab.com/3d-models/fluorita-a320593bf4fa46b9bbbce3fa9f71ba0a) by Geolab Laboratorio Virtual 3D (https://sketchfab.com/geolab-ule) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

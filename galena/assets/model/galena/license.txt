@@ -1,0 +1,11 @@
+Model Information:
+* title:	Galena
+* source:	https://sketchfab.com/3d-models/galena-0bcd9e8b73874ca08606c6a205acc742
+* author:	RISD Nature Lab (https://sketchfab.com/RISDNaturelab)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Galena" (https://sketchfab.com/3d-models/galena-0bcd9e8b73874ca08606c6a205acc742) by RISD Nature Lab (https://sketchfab.com/RISDNaturelab) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Malachite mineral
+* source:	https://sketchfab.com/3d-models/malachite-mineral-185d1b6b965047dea7202c89d5d0802e
+* author:	Museo [UV] Historia Natural (https://sketchfab.com/MUVHN)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Malachite mineral" (https://sketchfab.com/3d-models/malachite-mineral-185d1b6b965047dea7202c89d5d0802e) by Museo [UV] Historia Natural (https://sketchfab.com/MUVHN) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

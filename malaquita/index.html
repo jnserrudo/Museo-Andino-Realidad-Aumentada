@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <title>Museo Regional Andino - Malaquita</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="components.js"></script>
+    <script src="lang.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <a-scene vr-mode-ui="enabled: false">
+      <!-- Cámara -->
+      <a-entity id="camera" position="0 1.5 4" camera wasd-controls="enabled: false">
+        <a-entity cursor="fuse: false; rayOrigin: mouse;"
+                  raycaster="objects: [id^='click-point']"
+                  position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
+                  material="opacity: 0%; shader: flat">
+        </a-entity>
+      </a-entity>
+
+      <!-- Grupo de objetos -->
+      <a-entity id="grupo" position="0 1 0">
+
+        <a-gltf-model id="model" src="assets/model/malaquita/malaquita.gltf" 
+        position="-6 -2.5 0.5" scale="0.6 0.6 0.6" rotation="50" 
+        ></a-gltf-model>
+        
+        <a-sphere id="click-point-1" position="0 0 0.8" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"></a-sphere>
+        <a-sphere id="click-point-2" position="0.01 0.9 0.2" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"></a-sphere>
+        <a-sphere id="click-point-3" position="-0.5 0.3 -0.1" radius="0.1" color="#b57be0"
+        animation="property: material.emissive; to: #ffffff; dir: alternate; dur: 500; loop: true"></a-sphere>
+      </a-entity>
+
+     <!---<button id="language-toggle">English</button>-->
+
+
+      <!-- Contenedor de Tarjetas-->
+      <div class="card-container-wrapper">
+        <!-- Tarjeta 1 -->
+        <div class="card-container" id="info-card-1">
+          <div class="card-header">
+            <img src='assets/img/favicon.png' alt="Logo" class="card-logo">
+            <h1>Importancia y usos</h1>
+          </div>
+          <div class="lyrics-container" id="lyrics-1">
+            <p class="translatable">Mineral de gran importancia económica por ser una fuente 
+              principal de cobre. Además, se valora como piedra ornamental y ha sido utilizada 
+              históricamente como pigmento natural en manifestaciones artísticas tradicionales. </p>
+          </div>
+          <div class="card-buttons">
+            <button class="card-button" id="play-1"><span class="material-icons">play_arrow</span></button>
+            <button class="card-button" id="pause-1"><span class="material-icons">pause</span></button>
+            <button class="card-button" id="repeat-1"><span class="material-icons">replay</span></button>
+            <button class="card-button back" id="back-1"><span class="material-icons">arrow_back</span></button>
+          </div>
+        </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="card-container" id="info-card-2">
+        <div class="card-content">
+          <h1>Fragilidad y belleza</h1>
+          <div class="lyrics-container" id="lyrics-2">
+            <p class="translatable"> Aunque es un mineral relativamente blando (Mohs 3.5–4), su belleza lo convierte en una gema de colección, 
+              pero requiere manipulación cuidadosa para evitar daños o rayones.
+            </p>
+          </div>
+        </div>
+        <div class="card-buttons">
+          <button class="card-button" id="play-2"><span class="material-icons">play_arrow</span></button>
+          <button class="card-button" id="pause-2"><span class="material-icons">pause</span></button>
+          <button class="card-button" id="repeat-2"><span class="material-icons">replay</span></button>
+          <button class="card-button back" id="back-2"><span class="material-icons">arrow_back</span></button>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="card-container" id="info-card-3">
+        <div class="card-content">
+          <h1>Origen hidrotermal</h1>
+          <div class="lyrics-container" id="lyrics-3">
+            <p class="translatable" data-es="Prueba 1" data-en="Test 1">
+              Se forma en zonas de oxidación de yacimientos de cobre, donde las aguas ricas en minerales alteran otras rocas. 
+              En la Puna, este proceso está asociado a antiguos sistemas volcánicos y geotermales.
+            </p>
+          </div>
+        </div>
+        <div class="card-buttons">
+          <button class="card-button" id="play-3"><span class="material-icons">play_arrow</span></button>
+          <button class="card-button" id="pause-3"><span class="material-icons">pause</span></button>
+          <button class="card-button" id="repeat-3"><span class="material-icons">replay</span></button>
+          <button class="card-button back" id="back-3"><span class="material-icons">arrow_back</span></button>
+        </div>
+      </div>
+      </div>     
+    </a-scene>
+  </body>
+</html>

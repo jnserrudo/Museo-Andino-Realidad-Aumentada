@@ -1,0 +1,11 @@
+Model Information:
+* title:	ulexite 9-13
+* source:	https://sketchfab.com/3d-models/ulexite-9-13-2ed9ea3ccaa44c9283a1aef58d481205
+* author:	rocksandminerals (https://sketchfab.com/rocksandminerals)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "ulexite 9-13" (https://sketchfab.com/3d-models/ulexite-9-13-2ed9ea3ccaa44c9283a1aef58d481205) by rocksandminerals (https://sketchfab.com/rocksandminerals) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
