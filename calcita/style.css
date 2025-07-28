@@ -5,7 +5,11 @@
   padding: 0;
 }
 
-html, body {
+html, canvas.a-canvas {
+  background-color: transparent !important;
+}
+
+body {
   width: 100%;
   height: 100dvh; /* Mejor para móviles */
   font-family: 'Arial', sans-serif;
@@ -16,12 +20,12 @@ html, body {
 /* ====== Tipografías Custom ====== */
 @font-face {
   font-family: 'MuseoSans300';
-  src: url('assets/fonts/MuseoSans-300.woff') format('woff');
+  src: url('assets/fonts/museo-sans-300.ttf') format('truetype');
   font-weight: 300;
 }
 @font-face {
   font-family: 'MuseoSans700';
-  src: url('assets/fonts/MuseoSans-700.woff') format('woff');
+  src: url('assets/fonts/museo-sans-700.otf') format('opentype');
   font-weight: 700;
 }
 

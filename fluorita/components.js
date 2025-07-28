@@ -1,386 +1,176 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Datos de sincronización de marcador de posición. Reemplazar con datos reales.
   const syncData = {
-    1: [
-      { word: "Audio", time: 0.5 },
-      { word: "aun", time: 1.0 },
-      { word: "no", time: 1.5 },
-      { word: "sincronizado", time: 2.0 }
-    ],
-    2: [
-      { word: "Audio", time: 0.5 },
-      { word: "aun", time: 1.0 },
-      { word: "no", time: 1.5 },
-      { word: "sincronizado", time: 2.0 }
-    ],
-    3: [
-      { word: "El", time: 0 },
-      { word: "cuarzo", time: 0.2 },
-      { word: "es", time: 0.5 },
-      { word: "un", time: 0.9 },
-      { word: "mineral", time: 1.3 },
-      { word: "compuesto", time: 1.5 },
-      { word: "de", time: 1.6 },
-      { word: "sílice", time: 1.9 },
-      { word: "(SiO2).", time: 2.3 },
-      { word: "Tras", time: 4.2 },
-      { word: "el", time: 4.6 },
-      { word: "feldespato", time: 5.2 },
-      { word: "es", time: 5.8 },
-      { word: "el", time: 6.2 },
-      { word: "mineral", time: 6.6 },
-      { word: "más", time: 7 },
-      { word: "común", time: 7.4 },
-      { word: "de", time: 7.8 },
-      { word: "la", time: 8 },
-      { word: "corteza", time: 8.4 },
-      { word: "terrestre", time: 8.8 },
-      { word: "estando", time: 9.2 },
-      { word: "presente", time: 9.6 },
-      { word: "en", time: 10 },
-      { word: "una", time: 10.4 },
-      { word: "gran", time: 10.8 },
-      { word: "cantidad", time: 11.2 },
-      { word: "de", time: 11.6 },
-      { word: "rocas", time: 12 },
-      { word: "igneas", time: 12.4 },
-      { word: "metamorficas", time: 12.8 },
-      { word: "y", time: 13.2 },
-      { word: "sedimentarias", time: 13.6 },
-    ]
-    //El cuarzo es un mineral compuesto de sílice (SiO2). 
-    // Tras el feldespato, es el mineral más común de la 
-    // corteza terrestre estando presente en una gran cantidad de 
-    // rocas ígneas, metamórficas y sedimentarias. 
+    1: [{ word: "Audio", time: 0.5 }, { word: "no", time: 1.0 }, { word: "sincronizado", time: 1.5 }],
+    2: [{ word: "Audio", time: 0.5 }, { word: "no", time: 1.0 }, { word: "sincronizado", time: 1.5 }],
+    3: [{ word: "Audio", time: 0.5 }, { word: "no", time: 1.0 }, { word: "sincronizado", time: 1.5 }]
   };
-  
-  
-  
+
   var camera = document.querySelector("#camera");
   var grupo = document.querySelector("#grupo");
-  var cursor = document.querySelector("[cursor]");
   var isZoomedIn = false;
   var activePoint = null;
-  
-  // Crear los elementos de audio
+
+  // Crear los elementos de audio para fluorita
   var audios = {
-    1: new Audio('assets/audio/Dale-Don-Dale.mp3'),
-    2: new Audio('assets/audio/El-Diablo-de-Humahuaca.mp3'),
-    3: new Audio('assets/audio/audio-3.mp3')
+    1: new Audio('assets/audio/audio-3.mp3'), // Asignación de ejemplo
+    2: new Audio('assets/audio/audio2.m4a'),   // Asignación de ejemplo
+    3: new Audio('assets/audio/audio3.mp3')    // Asignación de ejemplo
   };
-  
 
   // Función para preparar el texto con palabras individuales
   function prepareText(cardNumber) {
     const container = document.getElementById(`lyrics-${cardNumber}`);
-    if (!container) {
-      console.warn(`No se encontró el contenedor de letras para la tarjeta ${cardNumber}`);
-      return;
-    }
-
-    const paragraphs = container.getElementsByClassName('translatable');
-    if (paragraphs.length === 0) {
-      console.warn(`No se encontraron párrafos con clase 'translatable' en la tarjeta ${cardNumber}`);
-      return;
-    }
-
-    Array.from(paragraphs).forEach(p => {
+    if (!container) return;
+    const p = container.querySelector('.translatable');
+    if (p) {
       const text = p.textContent.trim();
-      if (text) {
-        const words = text.split(/\s+/);
-        p.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
-      }
-    });
-    console.log(`Texto preparado para tarjeta ${cardNumber}:`, container.innerHTML);
+      p.innerHTML = text.split(/\s+/).map(word => `<span class="word">${word}</span>`).join(' ');
+    }
   }
 
-  // Preparar todos los textos
   [1, 2, 3].forEach(prepareText);
 
-
-  // Get all cards
   var cards = {
     'click-point-1': document.getElementById("info-card-1"),
     'click-point-2': document.getElementById("info-card-2"),
     'click-point-3': document.getElementById("info-card-3")
   };
 
-  // Configurar controles de audio para cada tarjeta
   Object.keys(cards).forEach((pointId, index) => {
     const cardNumber = index + 1;
     const audio = audios[cardNumber];
+    if (!audio) return;
 
-    // Asegurarse de que el audio exista
-    if (audio) {
-      const playBtn = document.getElementById(`play-${cardNumber}`);
-      const pauseBtn = document.getElementById(`pause-${cardNumber}`);
-      const repeatBtn = document.getElementById(`repeat-${cardNumber}`);
-      const backBtn = document.getElementById(`back-${cardNumber}`);
+    const playBtn = document.getElementById(`play-${cardNumber}`);
+    const pauseBtn = document.getElementById(`pause-${cardNumber}`);
+    const repeatBtn = document.getElementById(`repeat-${cardNumber}`);
+    const backBtn = document.getElementById(`back-${cardNumber}`);
+    let highlightInterval;
 
-      // Función para actualizar las palabras resaltadas
-      function updateHighlight() {
-        const currentTime = audio.currentTime;
-        const container = document.getElementById(`lyrics-${cardNumber}`);
-        if (!container) return;
-      
-        const words = container.getElementsByClassName('word');
-        const sync = syncData[cardNumber];
-      
-        if (!sync) return;
-      
-        // Limpiar resaltado de todas las palabras
-        Array.from(words).forEach(wordSpan => wordSpan.classList.remove('active'));
-      
-        // Buscar la palabra correcta por su índice en lugar de solo su texto
-        const currentWordIndex = sync.findIndex(entry => currentTime >= entry.time && 
-          (sync[sync.indexOf(entry) + 1] ? currentTime < sync[sync.indexOf(entry) + 1].time : true)
-        );
-      
-        if (currentWordIndex !== -1 && words[currentWordIndex]) {
-          words[currentWordIndex].classList.add('active');
-        }
-        console.log(`Tiempo actual: ${currentTime}, Palabra resaltada: ${sync[currentWordIndex]?.word}`);
-        console.log("Aplicando clase 'active' a:", words[currentWordIndex]);
+    function updateHighlight() {
+      const currentTime = audio.currentTime;
+      const container = document.getElementById(`lyrics-${cardNumber}`);
+      if (!container) return;
+      const words = container.getElementsByClassName('word');
+      const sync = syncData[cardNumber];
+      if (!sync) return;
+
+      Array.from(words).forEach(wordSpan => wordSpan.classList.remove('active'));
+
+      const currentWordIndex = sync.findIndex((entry, i) => 
+          currentTime >= entry.time && (sync[i + 1] ? currentTime < sync[i + 1].time : true)
+      );
+
+      if (currentWordIndex !== -1 && words[currentWordIndex]) {
+        words[currentWordIndex].classList.add('active');
       }
-      
-
-      // Actualizar el resaltado cada 100ms durante la reproducción
-      let highlightInterval;
-
-      // Play button
-      if (playBtn) {
-        playBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          console.log(`Iniciando reproducción para tarjeta ${cardNumber}`);
-          audio.play();
-          clearInterval(highlightInterval); // Limpiar intervalo anterior si existe
-          highlightInterval = setInterval(updateHighlight, 100);
-          console.log(`Reproduciendo audio ${cardNumber}, tiempo actual: ${audio.currentTime}`);
-        });
-      }
-
-      // Pause button
-      if (pauseBtn) {
-        pauseBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          audio.pause();
-          clearInterval(highlightInterval);
-        });
-      }
-
-      // Repeat button
-      if (repeatBtn) {
-        repeatBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          audio.currentTime = 0;
-          audio.play();
-          clearInterval(highlightInterval);
-          highlightInterval = setInterval(updateHighlight, 100);
-        });
-      }
-
-      // Back button
-      if (backBtn) {
-        backBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          audio.pause();
-          audio.currentTime = 0;
-          clearInterval(highlightInterval);
-          // Limpiar resaltado
-          const container = document.getElementById(`lyrics-${cardNumber}`);
-          if (container) {
-            const words = container.getElementsByClassName('word');
-            Array.from(words).forEach(wordSpan => {
-              wordSpan.classList.remove('active');
-            });
-          }
-          // Simular clic en el punto activo para volver
-          if (activePoint) {
-            activePoint.dispatchEvent(new Event('click'));
-          }
-        });
-      }
-
-      // Detener el resaltado cuando termina el audio
-      audio.addEventListener('ended', () => {
-        audio.currentTime = 0;
-        clearInterval(highlightInterval);
-        const container = document.getElementById(`lyrics-${cardNumber}`);
-        if (container) {
-          const words = container.getElementsByClassName('word');
-          Array.from(words).forEach(wordSpan => {
-            wordSpan.classList.remove('active');
-          });
-        }
-      });
     }
+
+    const stopAudio = () => {
+      audio.pause();
+      audio.currentTime = 0;
+      clearInterval(highlightInterval);
+      const container = document.getElementById(`lyrics-${cardNumber}`);
+      if (container) {
+          Array.from(container.getElementsByClassName('word')).forEach(w => w.classList.remove('active'));
+      }
+    };
+
+    if (playBtn) playBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      audio.play();
+      highlightInterval = setInterval(updateHighlight, 100);
+    });
+    if (pauseBtn) pauseBtn.addEventListener('click', (e) => { e.stopPropagation(); audio.pause(); clearInterval(highlightInterval); });
+    if (repeatBtn) repeatBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      audio.currentTime = 0;
+      audio.play();
+      highlightInterval = setInterval(updateHighlight, 100);
+    });
+    if (backBtn) backBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      stopAudio();
+      if (activePoint) activePoint.dispatchEvent(new Event('click'));
+    });
+
+    audio.addEventListener('ended', stopAudio);
   });
 
-  // Hide all cards initially
   Object.values(cards).forEach(card => {
     if (card) card.style.display = "none";
   });
 
-  var points = document.querySelectorAll("[id^='click-point']");
-
-  points.forEach((point) => {
+  document.querySelectorAll("[id^='click-point']").forEach((point) => {
     point.addEventListener("click", function () {
       var targetPosition = new THREE.Vector3();
       point.object3D.getWorldPosition(targetPosition);
 
       if (isZoomedIn && activePoint === point) {
-        // Salir del zoom y ocultar la tarjeta
-        anime({
-          targets: camera.object3D.position,
-          x: 0,
-          y: 1.6,
-          z: 4,
-          duration: 1000,
-          easing: "easeInOutQuad",
-        });
-
-        // Detener el audio y ocultar la tarjeta activa
+        anime({ targets: camera.object3D.position, x: 0, y: 1.5, z: 4, duration: 1000, easing: "easeInOutQuad" });
         const cardNumber = point.id.split('-')[2];
-        if (audios[cardNumber]) {
-          audios[cardNumber].pause();
-          audios[cardNumber].currentTime = 0;
-        }
-
+        if (audios[cardNumber]) audios[cardNumber].pause();
         const activeCard = cards[point.id];
         if (activeCard) {
-          anime({
-            targets: activeCard,
-            opacity: [1, 0],
-            scale: [1, 0.9],
-            duration: 500,
-            easing: "easeInOutQuad",
-            complete: function() {
-              activeCard.style.display = "none";
-            }
-          });
+          anime({ targets: activeCard, opacity: [1, 0], scale: [1, 0.9], duration: 500, easing: "easeInOutQuad", complete: () => { activeCard.style.display = "none"; } });
         }
         isZoomedIn = false;
         activePoint = null;
       } else {
-        // Detener el audio anterior si existe
         if (activePoint) {
           const prevCardNumber = activePoint.id.split('-')[2];
-          if (audios[prevCardNumber]) {
-            audios[prevCardNumber].pause();
-            audios[prevCardNumber].currentTime = 0;
-          }
+          if (audios[prevCardNumber]) audios[prevCardNumber].pause();
         }
 
-        // Ocultar todas las tarjetas primero
-        Object.values(cards).forEach(card => {
-          if (card) card.style.display = "none";
-        });
-
-        // Zoom al punto seleccionado
+        Object.values(cards).forEach(c => { if(c) c.style.display = "none"; });
 
         var zoomDistance = 1.2;
-        var direction = new THREE.Vector3()
-          .subVectors(targetPosition, camera.object3D.position)
-          .normalize();
+        var direction = new THREE.Vector3().subVectors(targetPosition, camera.object3D.position).normalize();
+        anime({ targets: camera.object3D.position, x: targetPosition.x - direction.x * zoomDistance, y: targetPosition.y - direction.y * zoomDistance, z: targetPosition.z - direction.z * zoomDistance, duration: 1000, easing: "easeInOutQuad" });
 
-        anime({
-          targets: camera.object3D.position,
-          x: targetPosition.x - direction.x * zoomDistance,
-          y: targetPosition.y - direction.y * zoomDistance,
-          z: targetPosition.z - direction.z * zoomDistance,
-          duration: 1000,
-          easing: "easeInOutQuad",
-        });
-
-        // Mostrar la tarjeta correspondiente
         const card = cards[point.id];
         if (card) {
           card.style.display = "block";
-          anime({
-            targets: card,
-            opacity: [0, 1],
-            scale: [0.9, 1],
-            duration: 500,
-            easing: "easeOutQuad"
-          });
+          anime({ targets: card, opacity: [0, 1], scale: [0.9, 1], duration: 500, easing: "easeOutQuad" });
         }
-
         isZoomedIn = true;
         activePoint = point;
       }
     });
-
   });
 
-  // Rotación del modelo con mouse
-  var isDragging = false;
-  var startMouseX = 0;
-  var startMouseY = 0;
-  var currentRotationX = 0;
-  var currentRotationY = 0;
+  let isDragging = false, startMouseX = 0, startMouseY = 0, currentRotationX = 0, currentRotationY = 0;
 
-  document.addEventListener("mousedown", function (event) {
-    if (!isZoomedIn) {
+  function startDrag(x, y) {
+      if (isZoomedIn) return;
       isDragging = true;
-      startMouseX = event.clientX;
-      startMouseY = event.clientY;
-    }
-  });
+      startMouseX = x;
+      startMouseY = y;
+  }
 
-  document.addEventListener("mousemove", function (event) {
-    if (isDragging) {
-      var deltaX = event.clientX - startMouseX;
-      var deltaY = event.clientY - startMouseY;
-      var rotationSpeed = 0.5;
-
-      currentRotationY += deltaX * rotationSpeed * 0.01;
-      currentRotationX -= deltaY * rotationSpeed * 0.01;
-
+  function drag(x, y) {
+      if (!isDragging) return;
+      const deltaX = x - startMouseX;
+      const deltaY = y - startMouseY;
+      currentRotationY += deltaX * 0.01;
+      currentRotationX -= deltaY * 0.01;
       grupo.object3D.rotation.y = currentRotationY;
       grupo.object3D.rotation.x = currentRotationX;
+      startMouseX = x;
+      startMouseY = y;
+  }
 
-      startMouseX = event.clientX;
-      startMouseY = event.clientY;
-    }
-  });
+  function endDrag() {
+      isDragging = false;
+  }
 
-  document.addEventListener("mouseup", function () {
-    isDragging = false;
-  });
+  document.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
+  document.addEventListener("mousemove", (e) => drag(e.clientX, e.clientY));
+  document.addEventListener("mouseup", endDrag);
+  document.addEventListener("touchstart", (e) => startDrag(e.touches[0].clientX, e.touches[0].clientY));
+  document.addEventListener("touchmove", (e) => drag(e.touches[0].clientX, e.touches[0].clientY));
+  document.addEventListener("touchend", endDrag);
 
-  // Soporte para dispositivos móviles
-  document.addEventListener("touchstart", function (event) {
-    if (!isZoomedIn) {
-      isDragging = true;
-      startMouseX = event.touches[0].clientX;
-      startMouseY = event.touches[0].clientY;
-    }
-  });
-
-  document.addEventListener("touchmove", function (event) {
-    if (isDragging) {
-      var deltaX = event.touches[0].clientX - startMouseX;
-      var deltaY = event.touches[0].clientY - startMouseY;
-      var rotationSpeed = 0.5;
-
-      currentRotationY += deltaX * rotationSpeed * 0.01;
-      currentRotationX -= deltaY * rotationSpeed * 0.01;
-
-      grupo.object3D.rotation.y = currentRotationY;
-      grupo.object3D.rotation.x = currentRotationX;
-
-      startMouseX = event.touches[0].clientX;
-      startMouseY = event.touches[0].clientY;
-    }
-  });
-
-  document.addEventListener("touchend", function () {
-    isDragging = false;
-  });
-
-  // Deshabilitar scroll mientras hace zoom
-  document.addEventListener("wheel", function (event) {
-    if (isZoomedIn) event.preventDefault();
-  });
+  document.addEventListener("wheel", (e) => { if (isZoomedIn) e.preventDefault(); }, { passive: false });
 });
-
-

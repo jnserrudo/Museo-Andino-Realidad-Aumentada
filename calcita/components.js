@@ -226,14 +226,14 @@ document.addEventListener("DOMContentLoaded", function () {
     point.addEventListener("click", function () {
       var targetPosition = new THREE.Vector3();
       point.object3D.getWorldPosition(targetPosition);
-
+      console.log("Target position:", targetPosition);
       if (isZoomedIn && activePoint === point) {
         // Salir del zoom y ocultar la tarjeta
         anime({
           targets: camera.object3D.position,
           x: 0,
-          y: 1.6,
-          z: 4,
+          y: 2,
+          z: -1,
           duration: 1000,
           easing: "easeInOutQuad",
         });
