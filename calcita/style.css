@@ -9,12 +9,16 @@ html, canvas.a-canvas {
   background-color: transparent !important;
 }
 
-body {
+html, body {
   width: 100%;
-  height: 100dvh; /* Mejor para móviles */
+  height: 100%;
+  overflow: hidden; /* Evita el scroll en toda la página */
   font-family: 'Arial', sans-serif;
-  overflow: hidden;
   background-color: #f9f9f9;
+}
+
+body {
+  height: 100dvh; /* Mejor para móviles */
 }
 
 /* ====== Tipografías Custom ====== */

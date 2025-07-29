@@ -14,12 +14,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-    <a-scene embedded vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true;" cursor="rayOrigin: mouse; fuse: false; objects: [data-raycastable];" arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;">
+    <a-scene embedded vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true;" cursor="rayOrigin: mouse; fuse: false; objects: [data-raycastable];" arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false; facingMode: environment;">
       <!-- Cámara -->
-      <a-camera id="camera" position="0 1.5 4" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
+      <a-camera id="camera" position="0 1.6 0" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
 
       <!-- Grupo de objetos -->
-      <a-entity id="grupo" position="0 1 0">
+      <a-entity id="grupo" position="0 1 -2">
 
         <a-gltf-model id="model" src="assets/model/fluorita/fluorita.gltf" 
         position="0 0 0" scale="1.2 1.2 1.2" rotation="-90" 

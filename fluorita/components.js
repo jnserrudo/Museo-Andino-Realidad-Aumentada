@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
       point.object3D.getWorldPosition(targetPosition);
 
       if (isZoomedIn && activePoint === point) {
-        anime({ targets: camera.object3D.position, x: 0, y: 1.5, z: 4, duration: 1000, easing: "easeInOutQuad" });
+        anime({ targets: camera.object3D.position, x: 0, y: 1.6, z: 0, duration: 1000, easing: "easeInOutQuad" });
         const cardNumber = point.id.split('-')[2];
         if (audios[cardNumber]) audios[cardNumber].pause();
         const activeCard = cards[point.id];
